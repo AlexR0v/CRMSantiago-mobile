@@ -46,6 +46,4 @@ const UsersGroup: FC = () => {
   )
 }
 
-const styles = StyleSheet.create({})
-
 export default UsersGroup

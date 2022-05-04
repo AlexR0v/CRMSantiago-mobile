@@ -66,15 +66,17 @@ const LoginForm = () => {
         return
       }
       if (data?.data?.success) {
+        dispatch(setIsLoading(true))
         setLoading(false)
         dispatch(setUserInformation(data?.data))
+        console.log('login:  ' + data?.data?.access_token)
         await AsyncStorage.setItem('token', data?.data?.access_token)
         await AsyncStorage.setItem('rights', JSON.stringify(data?.data?.right))
         await AsyncStorage.setItem('avatar', JSON.stringify(data?.data?.user.avatar))
         await AsyncStorage.setItem('userId', JSON.stringify(data?.data?.user.id))
         await AsyncStorage.setItem('userFirstName', JSON.stringify(data?.data?.user.first_name))
         await AsyncStorage.setItem('userLastName', JSON.stringify(data?.data?.user.last_name))
-        dispatch(setIsLoading(true))
+        dispatch(setIsLoading(false))
         return
       }
       if (!data?.data?.success) {

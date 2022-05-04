@@ -2,6 +2,7 @@ import { Avatar, ListItem }       from '@rneui/themed'
 import React, { FC, useState }    from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { IUser }                  from '../../types/auth'
+import ContactInformation         from './ContactInformation'
 
 interface IUserItem {
   user: IUser
@@ -44,7 +45,7 @@ const UserItem: FC<IUserItem> = ({ user }) => {
         setExpanded(!expanded)
       }}
     >
-      <Text>Hello</Text>
+      <ContactInformation id={user.id} />
     </ListItem.Accordion>
   )
 }

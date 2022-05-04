@@ -1,19 +1,17 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IUser }                     from '../../types/auth'
+import { createApi }           from '@reduxjs/toolkit/query/react'
+import { IUser }               from '../../types/auth'
+import { IUsersGroup }         from '../../types/users'
+import { baseQueryWithErrors } from '../api/baseQuery'
 
 export const usersGroupApi = createApi({
   reducerPath: 'usersGroupApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://waysops.com/api/v1/' }),
+  baseQuery: baseQueryWithErrors,
   endpoints: (builder) => ({
     onGetUsersList: builder.query({
-      query: (token) => ({
+      query: () => ({
         url: `users`,
         method: 'POST',
-        body: {},
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json'
-        }
+        body: {}
       }),
       transformResponse: (res: IUser[]) => res.sort(function (a: any, b: any){
         if (a.first_name < b.first_name) { return -1 }
@@ -24,8 +22,39 @@ export const usersGroupApi = createApi({
         }
         return 0
       })
+    }),
+    onGetUser: builder.query<{ user: IUser }, number>({
+      query: (id) => ({
+        url: `user/${id}`,
+        method: 'GET'
+      })
+    }),
+    onGetUsersGroup: builder.query<IUsersGroup[], any>({
+      query: () => ({
+        url: `user-groups`,
+        method: 'POST'
+      }),
+      transformResponse: (res: IUsersGroup[]) => res.map(item => {
+        return {
+          label: item.name,
+          value: item.id.toString(),
+          ...item
+        }
+      })
+    }),
+    onEditUser: builder.mutation({
+      query: ({ body }) => ({
+        url: `edit-user`,
+        method: 'POST',
+        body
+      })
     })
   })
 })
 
-export const { useOnGetUsersListQuery } = usersGroupApi
+export const {
+  useOnGetUsersListQuery,
+  useOnGetUserQuery,
+  useOnGetUsersGroupQuery,
+  useOnEditUserMutation
+} = usersGroupApi

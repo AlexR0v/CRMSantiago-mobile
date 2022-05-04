@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const loginApi = createApi({
   reducerPath: 'loginApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://waysops.com/api/v1/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https:/dev.waysops.com/api/v1/' }),
   endpoints: (builder) => ({
     onLogin: builder.mutation({
       query: ({ body }) => ({
