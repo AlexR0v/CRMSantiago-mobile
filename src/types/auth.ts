@@ -16,6 +16,17 @@ export interface ILogin {
   isLoading?: boolean
 }
 
+export type IUser = {
+  id: number | null
+  first_name: string | null
+  last_name: string | null
+  avatar: string | null
+  email?: string | null
+  phone?: string | null
+  is_active?: number | boolean
+  user_groups_name?: UserGroups[]
+}
+
 type UserBlocking = {
   user_is_blocking: string
 }
@@ -32,12 +43,10 @@ type NeedUpdatePass = {
   user_need_update_password: string
 }
 
-type IUser = {
-  id: number | null
-  first_name: string | null
-  last_name: string | null
-  avatar: string | null
-  email?: string | null
-  phone?: string | null
-  is_active?: number | boolean
+type UserGroups = {
+  name: string
+  pivot: {
+    user_id: number
+    user_group_id: number
+  }
 }

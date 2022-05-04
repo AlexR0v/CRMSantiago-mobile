@@ -1,9 +1,10 @@
+import AsyncStorage                                            from '@react-native-async-storage/async-storage'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import { Avatar, Icon }                                        from '@rneui/themed'
 import React, { FC }                                           from 'react'
 import { StyleSheet, Text, View }                              from 'react-native'
-import { useSelector }                                         from 'react-redux'
-import { userInformation }                                     from '../app/store/userSlice'
+import { useDispatch, useSelector }                            from 'react-redux'
+import { clearUserInformation, setIsLoading, userInformation } from '../app/store/userSlice'
 import Logo                                                    from '../ui/logo/Logo'
 
 interface NavigationDrawerProps {
@@ -12,6 +13,7 @@ interface NavigationDrawerProps {
 
 const NavigationDrawer: FC<NavigationDrawerProps> = (props: any) => {
   const { user } = useSelector(userInformation)
+  const dispatch = useDispatch()
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.avatar_block}>
@@ -41,8 +43,12 @@ const NavigationDrawer: FC<NavigationDrawerProps> = (props: any) => {
               color={'#999999'}
             />
           )}
-          onPress={() => {
+          onPress={async () => {
             props.navigation.closeDrawer()
+            dispatch(setIsLoading(true))
+            dispatch(clearUserInformation())
+            await AsyncStorage.clear()
+            dispatch(setIsLoading(false))
           }}
         />
       </View>

@@ -1,15 +1,15 @@
 import React, { FC }              from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-const Settings: FC = () => {
+const General: FC = () => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings</Text>
+      <Text>General</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({})
 
-export default Settings
+export default General

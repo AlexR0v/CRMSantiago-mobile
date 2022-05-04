@@ -15,10 +15,11 @@ import Home                                                  from '../screens/Ho
 import Invoices                                              from '../screens/Invoices'
 import Locations                                             from '../screens/Locations'
 import Providers                                             from '../screens/Providers'
-import Settings                                              from '../screens/Settings'
+import Settings                                              from '../screens/settings/Settings'
 import Tasks                                                 from '../screens/Tasks'
 import Transfers                                             from '../screens/Transfers'
 import Trips                                                 from '../screens/Trips'
+import { routeMainList }                                     from './routeList'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -28,14 +29,9 @@ const Navigation = () => {
   const dispatch = useDispatch()
   const user = useSelector(userInformation)
 
-  const [token, setToken] = useState<string>('')
-
   const getToken = async () => {
     try {
       const dataToken = await AsyncStorage.getItem('token')
-      if (dataToken !== null) {
-        setToken(dataToken)
-      }
       const dataUserId = await AsyncStorage.getItem('userId')
       const dataUserAva = await AsyncStorage.getItem('avatar')
       const dataUserFirstName = await AsyncStorage.getItem('userFirstName')
@@ -58,7 +54,7 @@ const Navigation = () => {
 
   useEffect(() => {
     getToken()
-  }, [getToken])
+  }, [])
 
   if (user.isLoading) {
     return (
