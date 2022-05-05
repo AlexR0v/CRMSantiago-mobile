@@ -3,6 +3,7 @@ import { loginApi }       from '../services/login'
 import { tripSearchApi }  from '../services/tripSearch'
 import { usersGroupApi }  from '../services/usersGroup'
 import notifySlice        from './notifySlice'
+import tripsSearchReducer from './tripsSearchSlice'
 import userReducer        from './userSlice'
 import verifyReducer      from './virifySlice'
 
@@ -13,7 +14,8 @@ export const store = configureStore({
     [tripSearchApi.reducerPath]: tripSearchApi.reducer,
     verify: verifyReducer,
     user: userReducer,
-    notify: notifySlice
+    notify: notifySlice,
+    tripsSearch: tripsSearchReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

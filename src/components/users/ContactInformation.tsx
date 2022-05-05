@@ -108,6 +108,9 @@ const ContactInformation: FC<ContactInformationProps> = ({ id }) => {
                   style={{
                     placeholder: {
                       color: '#000000'
+                    },
+                    chevron: {
+                      backgroundColor: '#000000'
                     }
                   }}
                   placeholder={{
@@ -191,7 +194,8 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     padding: 10,
-    borderColor: '#969696'
+    borderColor: '#969696',
+    color: '#000000'
   }
 
 })

@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
   },
   text_small: {
     fontSize: 14,
-    marginVertical: 20
+    marginVertical: 20,
+    color: '#000000'
   },
   link_block: {
     alignItems: 'center',
@@ -53,7 +54,8 @@ const styles = StyleSheet.create({
   text_link: {
     fontSize: 16,
     marginVertical: 20,
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    color: '#000000'
   },
   text_wrap: {
     width: '100%'

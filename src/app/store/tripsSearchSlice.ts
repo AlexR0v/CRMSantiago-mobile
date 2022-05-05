@@ -1,4 +1,7 @@
-export let initialStateQuery = {
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState }                  from './index'
+
+const initialState = {
   search: null,
   trip_name: {
     value: [],
@@ -144,3 +147,22 @@ export let initialStateQuery = {
   count: 10,
   search_hash: null
 }
+
+export const tripsSearchSlice = createSlice({
+  name: 'tripsSearch',
+  initialState,
+  reducers: {
+    setTripPage: (state, action) => {
+      state.page = action.payload
+    },
+    setTripSearch: (state, action: PayloadAction<string>) => {
+      state.search = action.payload
+    }
+  }
+})
+
+export const { setTripPage, setTripSearch } = tripsSearchSlice.actions
+
+export const tripSearchStore = (state: RootState) => state.tripsSearch
+
+export default tripsSearchSlice.reducer
