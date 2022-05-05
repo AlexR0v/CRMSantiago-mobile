@@ -29,9 +29,11 @@ const Login: FC<ILogin> = ({ navigation }) => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
-    marginVertical: 20
+    marginVertical: 20,
+    color: '#000000'
   },
   text_link: {
+    color: '#000000',
     fontSize: 16,
     marginVertical: 20,
     textDecorationLine: 'underline'

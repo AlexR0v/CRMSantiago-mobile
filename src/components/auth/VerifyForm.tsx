@@ -45,6 +45,7 @@ const VerifyForm = () => {
         await AsyncStorage.setItem('userId', JSON.stringify(data?.data?.user.id))
         await AsyncStorage.setItem('userFirstName', JSON.stringify(data?.data?.user.first_name))
         await AsyncStorage.setItem('userLastName', JSON.stringify(data?.data?.user.last_name))
+        dispatch(setIsLoading(true))
         return
       }
       if (!data.success) {

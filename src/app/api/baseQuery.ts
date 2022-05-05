@@ -9,7 +9,6 @@ const customBaseQuery = fetchBaseQuery({
   baseUrl: 'https://dev.waysops.com/api/v1/',
   prepareHeaders: (headers, { getState }) => {
     const { user: { access_token } } = getState() as RootState
-    console.log('base:  ' + access_token)
     if (access_token) {
       headers.set('Authorization', `Bearer ${access_token}`)
       headers.set('Accept', `application/json`)

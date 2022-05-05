@@ -1,7 +1,10 @@
 import { Button, Icon, Switch }                                              from '@rneui/themed'
 import React, { FC, useEffect, useState }                                    from 'react'
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, View }       from 'react-native'
+import { Snackbar }                                                          from 'react-native-paper'
+import { useDispatch }                                                       from 'react-redux'
 import { useOnEditUserMutation, useOnGetUserQuery, useOnGetUsersGroupQuery } from '../../app/services/usersGroup'
+import { setIsNotifyVisible }                                                from '../../app/store/notifySlice'
 import { IUser }                                                             from '../../types/auth'
 import RNPickerSelect                                                        from 'react-native-picker-select'
 
@@ -10,6 +13,8 @@ interface ContactInformationProps {
 }
 
 const ContactInformation: FC<ContactInformationProps> = ({ id }) => {
+
+  const dispatch = useDispatch()
 
   const [user, setUser] = useState<IUser>(null)
   const [userGroupIds, setUserUserGroupIds] = useState<number[]>([])
@@ -24,7 +29,7 @@ const ContactInformation: FC<ContactInformationProps> = ({ id }) => {
       setUser(data.user)
       setUserUserGroupIds([data.user.user_groups_name[0].pivot.user_group_id])
     }
-  }, [data, isFetching])
+  }, [data, isFetching, isChange])
 
   const onSubmit = async () => {
     const body = {
@@ -36,12 +41,11 @@ const ContactInformation: FC<ContactInformationProps> = ({ id }) => {
       phone: user.phone,
       user_group_ids: userGroupIds
     }
-    console.log(body)
     try {
-      //const { data }: any = await updateUser({ body })
-      // if (data.success) {
-      //
-      // }
+      const { data }: any = await updateUser({ body })
+      if (data.success) {
+        dispatch(setIsNotifyVisible({ visible: true, message: data.messages }))
+      }
     } catch (err) {
       Alert.alert('Error', err.toString())
     }
@@ -101,6 +105,11 @@ const ContactInformation: FC<ContactInformationProps> = ({ id }) => {
                 />
                 <RNPickerSelect
                   items={group as any}
+                  style={{
+                    placeholder: {
+                      color: '#000000'
+                    }
+                  }}
                   placeholder={{
                     label: user.user_groups_name[0].name,
                     value: user.user_groups_name[0].pivot.user_group_id
@@ -132,7 +141,10 @@ const ContactInformation: FC<ContactInformationProps> = ({ id }) => {
                       width: 80,
                       marginHorizontal: 5
                     }}
-                    onPress={() => refetch()}
+                    onPress={() => {
+                      refetch()
+                      setIsChange(false)
+                    }}
                     title='Cancel'
                   />
                 </View>
@@ -166,13 +178,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10
   },
   title: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#000000'
   },
   user_block: {
     paddingLeft: 30
   },
   user_title: {
-    paddingVertical: 15
+    paddingVertical: 15,
+    color: '#000000'
   },
   input: {
     borderBottomWidth: 1,

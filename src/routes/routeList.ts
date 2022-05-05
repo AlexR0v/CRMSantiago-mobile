@@ -5,7 +5,7 @@ import Locations from '../screens/Locations'
 import Providers from '../screens/Providers'
 import Tasks     from '../screens/Tasks'
 import Transfers from '../screens/Transfers'
-import Trips     from '../screens/Trips'
+import Trips     from '../screens/trips/Trips'
 
 export const routeMainList = [
   { id: 1, name: 'Home', component: Home, icon_type: 'feather', icon_name: 'home' },

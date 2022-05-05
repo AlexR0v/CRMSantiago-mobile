@@ -6,6 +6,7 @@ import { baseQueryWithErrors } from '../api/baseQuery'
 export const usersGroupApi = createApi({
   reducerPath: 'usersGroupApi',
   baseQuery: baseQueryWithErrors,
+  tagTypes: ['User'],
   endpoints: (builder) => ({
     onGetUsersList: builder.query({
       query: () => ({
@@ -21,7 +22,11 @@ export const usersGroupApi = createApi({
           if (a.last_name > b.last_name) { return 1 }
         }
         return 0
-      })
+      }),
+      providesTags: (result, error, arg) =>
+        result
+          ? [...result.map(({ id }) => ({ type: 'User' as const, id })), 'User']
+          : ['User']
     }),
     onGetUser: builder.query<{ user: IUser }, number>({
       query: (id) => ({
@@ -47,7 +52,10 @@ export const usersGroupApi = createApi({
         url: `edit-user`,
         method: 'POST',
         body
-      })
+      }),
+      invalidatesTags: (result, error, arg) => {
+        return [{ type: 'User', id: arg.body.id }]
+      }
     })
   })
 })

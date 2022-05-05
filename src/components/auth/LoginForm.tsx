@@ -69,7 +69,6 @@ const LoginForm = () => {
         dispatch(setIsLoading(true))
         setLoading(false)
         dispatch(setUserInformation(data?.data))
-        console.log('login:  ' + data?.data?.access_token)
         await AsyncStorage.setItem('token', data?.data?.access_token)
         await AsyncStorage.setItem('rights', JSON.stringify(data?.data?.right))
         await AsyncStorage.setItem('avatar', JSON.stringify(data?.data?.user.avatar))

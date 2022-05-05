@@ -1,7 +1,7 @@
 import AsyncStorage                                          from '@react-native-async-storage/async-storage'
 import { createDrawerNavigator }                             from '@react-navigation/drawer'
 import { createNativeStackNavigator }                        from '@react-navigation/native-stack'
-import { Icon }                                              from '@rneui/themed'
+import { Button, Icon }                                      from '@rneui/themed'
 import React, { useEffect, useState }                        from 'react'
 import { ActivityIndicator, View }                           from 'react-native'
 import { useDispatch, useSelector }                          from 'react-redux'
@@ -18,7 +18,8 @@ import Providers                                             from '../screens/Pr
 import Settings                                              from '../screens/settings/Settings'
 import Tasks                                                 from '../screens/Tasks'
 import Transfers                                             from '../screens/Transfers'
-import Trips                                                 from '../screens/Trips'
+import TripDetails                                           from '../screens/trips/TripDetails'
+import Trips                                                 from '../screens/trips/Trips'
 import { routeMainList }                                     from './routeList'
 
 const Stack = createNativeStackNavigator()
@@ -222,6 +223,23 @@ const Navigation = () => {
                   />
                 )
               }}
+            />
+            <Stack.Screen
+              name='TripDetails'
+              component={TripDetails}
+              options={({ route, navigation }: any) => ({
+                title: route.params?.name ? route.params?.name : '',
+                headerRight: () => (
+                  <Icon
+                    style={{ marginRight: 15 }}
+                    onPress={() => navigation.navigate('Trips')}
+                    type='ant-design'
+                    name='arrowleft'
+                    size={30}
+                    color='#fff'
+                  />
+                )
+              })}
             />
           </Drawer.Navigator>
       }

@@ -14,6 +14,7 @@ const UserItem: FC<IUserItem> = ({ user }) => {
 
   const userLetters = (user?.first_name ? user?.first_name?.substring(0, 1) : '') +
     (user?.last_name ? user?.last_name?.substring(0, 1) : '')
+
   return (
     <ListItem.Accordion
       content={
@@ -30,12 +31,18 @@ const UserItem: FC<IUserItem> = ({ user }) => {
             />
             <View style={{ marginLeft: 10 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{user?.first_name} {user?.last_name}</Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#000000'
+                  }}
+                >{user?.first_name} {user?.last_name}</Text>
                 <View style={styles.pivot}>
                   <Text style={styles.pivot_text}>{user?.user_groups_name[0]?.name}</Text>
                 </View>
               </View>
-              <Text>{user?.email}</Text>
+              <Text style={{ color: '#000000' }}>{user?.email}</Text>
             </View>
           </View>
         </ListItem.Content>
