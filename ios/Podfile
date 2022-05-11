@@ -22,6 +22,8 @@ target 'CRMSantiago' do
 
 
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'CRMSantiagoTests' do
     inherit! :complete
     # Pods for testing

@@ -35,7 +35,7 @@ const VerifyForm = () => {
     try {
       setLoading(true)
       const data: any = await onVerify({ body })
-      if (data.success) {
+      if (data?.data.success) {
         setLoading(false)
         dispatch(setIsLoading(true))
         dispatch(setUserInformation(data))
@@ -48,9 +48,9 @@ const VerifyForm = () => {
         dispatch(setIsLoading(true))
         return
       }
-      if (!data.success) {
+      if (!data?.data.success) {
         setLoading(false)
-        return Alert.alert('Error', Object.values(data.errors).join(', '))
+        return Alert.alert('Error', Object.values(data?.data.errors).join(', '))
       }
       setLoading(false)
       setCode('')
